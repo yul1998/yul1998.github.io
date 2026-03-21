@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你的姓名 | Personal Homepage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2980b9;
+            --text-color: #2c3e50;
+            --text-muted: #7f8c8d;
+            --bg-color: #ffffff;
+            --bg-alt: #f8f9fa;
+            --border-color: #e0e0e0;
+            --link-color: #3498db;
+            --link-hover: #2980b9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background: var(--bg-color);
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--link-hover);
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 导航栏 */
+        .nav {
+            position: sticky;
+            top: 0;
+            background: var(--bg-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            z-index: 100;
+        }
+
+        .nav-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            list-style: none;
+            font-size: 14px;
+        }
+
+        .nav-list a {
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .nav-list a:hover {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        /* 头部信息 */
+        .header {
+            padding: 50px 0 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .header .title {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .header .email {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* 通用区块样式 */
+        section {
+            padding: 30px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* 个人简介 */
+        .bio-text {
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        /* 研究兴趣 */
+        .interests-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .interest-item {
+            background: var(--bg-alt);
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .interest-title {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .interest-papers {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .interest-papers a {
+            display: inline-block;
+            margin-right: 8px;
+            font-size: 13px;
+        }
+
+        /* 教育和工作经历 */
+        .timeline-item {
+            margin-bottom: 20px;
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .timeline-school, .timeline-company {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .timeline-degree, .timeline-position {
+            color: var(--text-muted);
+        }
+
+        .timeline-time {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .timeline-detail {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        /* 论文列表 */
+        .paper-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filter-btn {
+            background: var(--bg-alt);
+            border: 1px solid var(--border-color);
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .paper-item {
+            margin-bottom: 25px;
+            padding-left: 15px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .paper-title {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .paper-authors {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .paper-authors strong {
+            color: var(--text-color);
+        }
+
+        .paper-venue {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .paper-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .paper-link {
+            font-size: 12px;
+            padding: 3px 10px;
+            border: 1px solid var(--link-color);
+            border-radius: 3px;
+            color: var(--link-color);
+        }
+
+        .paper-link:hover {
+            background: var(--link-color);
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* GitHub 项目 */
+        .github-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .github-item {
+            background: var(--bg-alt);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            transition: border-color 0.2s;
+        }
+
+        .github-item:hover {
+            border-color: var(--link-color);
+        }
+
+        .github-name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .github-name a {
+            color: var(--link-color);
+        }
+
+        .github-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .github-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .github-lang {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .lang-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        /* 荣誉奖项 */
+        .honor-item {
+            margin-bottom: 15px;
+        }
+
+        .honor-title {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .honor-time {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* 学术服务 */
+        .service-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .service-tag {
+            background: var(--bg-alt);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+
+        /* 页脚 */
+        .footer {
+            padding: 30px 0;
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            margin-top: 30px;
+        }
+
+        .footer a {
+            color: var(--text-muted);
+        }
+
+        .back-to-top {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .back-to-top:hover {
+            background: var(--bg-alt);
+            text-decoration: none;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .nav-list {
+                gap: 12px;
+                font-size: 13px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .timeline-header {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .github-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <div class="container">
+            <ul class="nav-list">
+                <li><a href="#about">About</a></li>
+                <li><a href="#interests">Interests</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#experiences">Experiences</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="#github">GitHub</a></li>
+                <li><a href="#honors">Honors</a></li>
+                <li><a href="#services">Services</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- 头部 -->
+        <header class="header">
+            <h1>Yu Liu</h1>
+            <p class="title">吉林大学 计算机科学与技术学院 助理研究员</p>
+            <p class="email">yul26@jlu.edu.cn</p>
+        </header>
+
+        <!-- 个人简介 -->
+        <section id="about">
+            <h2 class="section-title">About</h2>
+            <p class="bio-text">
+                我是吉林大学计算机科学与技术学院的鼎新学者Yu Liu。我的研究兴趣主要集中在人工智能、机器学习、计算机视觉等领域。
+            </p>
+            <p class="bio-text">
+                在此之前，我在吉林大学获得了计算机科学与技术博士学位。我致力于通过创新的方法解决实际问题，并在顶级会议和期刊上发表了多篇学术论文。
+            </p>
+            <p class="bio-text">
+                欢迎对研究感兴趣的同学通过邮件与我联系！
+            </p>
+        </section>
+
+        <!-- 研究兴趣 -->
+        <section id="interests">
+            <h2 class="section-title">Interests</h2>
+            <div class="interests-grid">
+                <div class="interest-item">
+                    <div class="interest-title">🤖 机器学习 (Machine Learning)</div>
+                    <div class="interest-papers">
+                        <a href="#">[Project A]</a>
+                        <a href="#">[Project B]</a>
+                        <a href="#">[Survey]</a>
+                    </div>
+                </div>
+                <div class="interest-item">
+                    <div class="interest-title">👁️ 计算机视觉 (Computer Vision)</div>
+                    <div class="interest-papers">
+                        <a href="#">[CVPR 2025]</a>
+                        <a href="#">[ICCV 2024]</a>
+                        <a href="#">[ECCV 2024]</a>
+                    </div>
+                </div>
+                <div class="interest-item">
+                    <div class="interest-title">📝 自然语言处理 (NLP)</div>
+                    <div class="interest-papers">
+                        <a href="#">[ACL 2025]</a>
+                        <a href="#">[EMNLP 2024]</a>
+                    </div>
+                </div>
+                <div class="interest-item">
+                    <div class="interest-title">🧠 深度学习 (Deep Learning)</div>
+                    <div class="interest-papers">
+                        <a href="#">[NeurIPS 2025]</a>
+                        <a href="#">[ICLR 2025]</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 教育背景 -->
+        <section id="education">
+            <h2 class="section-title">Education</h2>
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <span class="timeline-school">XX 大学</span>
+                    <span class="timeline-time">2023 - 至今</span>
+                </div>
+                <div class="timeline-degree">计算机科学与技术 博士研究生</div>
+                <div class="timeline-detail">导师：XXX 教授</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <span class="timeline-school">XX 大学</span>
+                    <span class="timeline-time">2020 - 2023</span>
+                </div>
+                <div class="timeline-degree">计算机科学与技术 硕士研究生</div>
+                <div class="timeline-detail">导师：XXX 教授</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <span class="timeline-school">XX 大学</span>
+                    <span class="timeline-time">2016 - 2020</span>
+                </div>
+                <div class="timeline-degree">计算机科学与技术 学士</div>
+            </div>
+        </section>
+
+        <!-- 工作/研究经历 -->
+        <section id="experiences">
+            <h2 class="section-title">Experiences</h2>
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <span class="timeline-company">XX 公司 AI 实验室</span>
+                    <span class="timeline-time">2025.06 - 2025.12</span>
+                </div>
+                <div class="timeline-position">研究实习生</div>
+                <div class="timeline-detail">研究方向：大语言模型与多模态学习</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <span class="timeline-company">微软亚洲研究院 (MSRA)</span>
+                    <span class="timeline-time">2024.06 - 2024.09</span>
+                </div>
+                <div class="timeline-position">访问学生</div>
+                <div class="timeline-detail">合作导师：XXX 研究员</div>
+            </div>
+        </section>
+
+        <!-- 发表论文 -->
+        <section id="publications">
+            <h2 class="section-title">Publications</h2>
+            <div class="paper-filters">
+                <button class="filter-btn active" onclick="filterPapers('all')">Show All</button>
+                <button class="filter-btn" onclick="filterPapers('representative')">Representative</button>
+            </div>
+
+            <div class="paper-item representative">
+                <div class="paper-title">论文标题示例：一种基于深度学习的创新方法研究</div>
+                <div class="paper-authors">
+                    <strong>你的姓名</strong>, 合作作者 1, 合作作者 2, 通讯作者
+                </div>
+                <div class="paper-venue">
+                    <em>Neural Information Processing Systems (NeurIPS)</em>, 2025
+                </div>
+                <div class="paper-links">
+                    <a href="#" class="paper-link">Paper</a>
+                    <a href="#" class="paper-link">Code</a>
+                    <a href="#" class="paper-link">Project</a>
+                </div>
+            </div>
+
+            <div class="paper-item representative">
+                <div class="paper-title">论文标题示例：面向大规模视觉识别的高效框架</div>
+                <div class="paper-authors">
+                    合作作者 1, <strong>你的姓名</strong>, 通讯作者
+                </div>
+                <div class="paper-venue">
+                    <em>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 2025
+                </div>
+                <div class="paper-links">
+                    <a href="#" class="paper-link">Paper</a>
+                    <a href="#" class="paper-link">Code ⭐ 500+</a>
+                </div>
+            </div>
+
+            <div class="paper-item">
+                <div class="paper-title">论文标题示例：多模态学习中的表示方法研究</div>
+                <div class="paper-authors">
+                    <strong>你的姓名</strong>, 合作作者 1, 合作作者 2
+                </div>
+                <div class="paper-venue">
+                    <em>International Conference on Machine Learning (ICML)</em>, 2024
+                </div>
+                <div class="paper-links">
+                    <a href="#" class="paper-link">Paper</a>
+                    <a href="#" class="paper-link">Code</a>
+                </div>
+            </div>
+
+            <div class="paper-item">
+                <div class="paper-title">论文标题示例：基于 Transformer 的序列建模方法</div>
+                <div class="paper-authors">
+                    合作作者 1, <strong>你的姓名</strong>, 合作作者 2, 通讯作者
+                </div>
+                <div class="paper-venue">
+                    <em>International Conference on Learning Representations (ICLR)</em>, 2024
+                </div>
+                <div class="paper-links">
+                    <a href="#" class="paper-link">Paper</a>
+                    <a href="#" class="paper-link">Code ⭐ 300+</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- GitHub 项目 -->
+        <section id="github">
+            <h2 class="section-title">GitHub</h2>
+            <div class="github-grid">
+                <div class="github-item">
+                    <div class="github-name">
+                        <a href="#" target="_blank">your-username/awesome-project</a>
+                    </div>
+                    <div class="github-desc">
+                        🌟 一个超棒的项目！这是项目的简短描述。
+                    </div>
+                    <div class="github-meta">
+                        <span class="github-lang">
+                            <span class="lang-dot" style="background: #f1e05a;"></span>
+                            Python
+                        </span>
+                        <span>⭐ 1.2k</span>
+                        <span>🍴 234</span>
+                    </div>
+                </div>
+
+                <div class="github-item">
+                    <div class="github-name">
+                        <a href="#" target="_blank">your-username/deep-learning-toolkit</a>
+                    </div>
+                    <div class="github-desc">
+                        🧠 深度学习工具包，提供常用的神经网络模块。
+                    </div>
+                    <div class="github-meta">
+                        <span class="github-lang">
+                            <span class="lang-dot" style="background: #f1e05a;"></span>
+                            Python
+                        </span>
+                        <span>⭐ 856</span>
+                        <span>🍴 123</span>
+                    </div>
+                </div>
+
+                <div class="github-item">
+                    <div class="github-name">
+                        <a href="#" target="_blank">your-username/nlp-experiments</a>
+                    </div>
+                    <div class="github-desc">
+                        📝 自然语言处理实验代码，包含多种 Transformer 实现。
+                    </div>
+                    <div class="github-meta">
+                        <span class="github-lang">
+                            <span class="lang-dot" style="background: #3572a5;"></span>
+                            JavaScript
+                        </span>
+                        <span>⭐ 432</span>
+                        <span>🍴 89</span>
+                    </div>
+                </div>
+
+                <div class="github-item">
+                    <div class="github-name">
+                        <a href="#" target="_blank">your-username/personal-website</a>
+                    </div>
+                    <div class="github-desc">
+                        🌐 个人网站模板，简洁优雅的设计。
+                    </div>
+                    <div class="github-meta">
+                        <span class="github-lang">
+                            <span class="lang-dot" style="background: #e34c26;"></span>
+                            HTML
+                        </span>
+                        <span>⭐ 234</span>
+                        <span>🍴 56</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 荣誉奖项 -->
+        <section id="honors">
+            <h2 class="section-title">Honors & Awards</h2>
+            <div class="honor-item">
+                <div class="honor-title">国家奖学金</div>
+                <div class="honor-time">2025</div>
+            </div>
+            <div class="honor-item">
+                <div class="honor-title">XX 大学优秀博士研究生</div>
+                <div class="honor-time">2024</div>
+            </div>
+            <div class="honor-item">
+                <div class="honor-title">XX 会议最佳论文奖</div>
+                <div class="honor-time">2024</div>
+            </div>
+            <div class="honor-item">
+                <div class="honor-title">XX 大学研究生一等奖学金</div>
+                <div class="honor-time">2023 - 2025</div>
+            </div>
+        </section>
+
+        <!-- 学术服务 -->
+        <section id="services">
+            <h2 class="section-title">Academic Services</h2>
+            <div style="margin-bottom: 20px;">
+                <strong style="font-size: 14px;">Conference Reviewer:</strong>
+                <div class="service-list" style="margin-top: 10px;">
+                    <span class="service-tag">CVPR</span>
+                    <span class="service-tag">ICCV</span>
+                    <span class="service-tag">ECCV</span>
+                    <span class="service-tag">NeurIPS</span>
+                    <span class="service-tag">ICLR</span>
+                    <span class="service-tag">ICML</span>
+                </div>
+            </div>
+            <div>
+                <strong style="font-size: 14px;">Journal Reviewer:</strong>
+                <div class="service-list" style="margin-top: 10px;">
+                    <span class="service-tag">TPAMI</span>
+                    <span class="service-tag">IJCV</span>
+                    <span class="service-tag">TNNLS</span>
+                    <span class="service-tag">TCSVT</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>📧 your.email [at] university.edu</p>
+        <p style="margin-top: 10px;">Last updated: March 2026</p>
+        <a href="#" class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">↑ Top</a>
+    </footer>
+
+    <script>
+        // 论文筛选功能
+        function filterPapers(type) {
+            const papers = document.querySelectorAll('.paper-item');
+            const btns = document.querySelectorAll('.filter-btn');
+            
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            papers.forEach(paper => {
+                if (type === 'all') {
+                    paper.style.display = 'block';
+                } else if (type === 'representative') {
+                    if (paper.classList.contains('representative')) {
+                        paper.style.display = 'block';
+                    } else {
+                        paper.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
