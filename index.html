@@ -1,757 +1,303 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yu Liu | Personal Homepage</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Yu Liu — Assistant Researcher at Jilin University. Research in multimodal learning, cross-modal retrieval, and causal representation learning.">
+  <meta name="theme-color" content="#f7f4ee">
+  <meta property="og:title" content="Yu Liu — Academic Homepage">
+  <meta property="og:description" content="Research in multimodal learning, cross-modal retrieval, and causal representation learning.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yul1998.github.io/">
+  <meta property="og:image" content="https://avatars.githubusercontent.com/u/71552069?v=4">
+  <title>Yu Liu — Academic Homepage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&amp;family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f7f4ee;
+      --paper-deep: #eee9df;
+      --ink: #17201d;
+      --muted: #66706b;
+      --line: #d8d3c9;
+      --accent: #176b55;
+      --accent-soft: #dcebe4;
+      --card: rgba(255,255,255,.58);
+      --shadow: 0 18px 50px rgba(32,44,39,.08);
+    }
 
-        :root {
-            --primary-color: #2980b9;
-            --text-color: #2c3e50;
-            --text-muted: #7f8c8d;
-            --bg-color: #ffffff;
-            --bg-alt: #f8f9fa;
-            --border-color: #e0e0e0;
-            --link-color: #3498db;
-            --link-hover: #2980b9;
-        }
+    [data-theme="dark"] {
+      --paper: #151b19;
+      --paper-deep: #1d2522;
+      --ink: #eef3ef;
+      --muted: #a7b2ad;
+      --line: #34403b;
+      --accent: #7fc5aa;
+      --accent-soft: #243b32;
+      --card: rgba(29,37,34,.74);
+      --shadow: 0 18px 50px rgba(0,0,0,.22);
+    }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.7;
-            color: var(--text-color);
-            background: var(--bg-color);
-        }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 85% 4%, rgba(23,107,85,.09), transparent 25rem),
+        var(--paper);
+      font: 16px/1.7 "DM Sans", system-ui, sans-serif;
+      transition: color .2s, background-color .2s;
+    }
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+    .shell { width: min(1120px, calc(100% - 40px)); margin: auto; }
 
-        a {
-            color: var(--link-color);
-            text-decoration: none;
-        }
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid transparent;
+      backdrop-filter: blur(14px);
+      background: color-mix(in srgb, var(--paper) 82%, transparent);
+    }
+    .site-nav.scrolled { border-color: var(--line); }
+    .nav-inner { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .wordmark { font: 600 1.35rem/1 "Newsreader", serif; letter-spacing: -.02em; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { color: var(--muted); font-size: .87rem; font-weight: 500; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-actions { display: flex; gap: 8px; }
+    .icon-button {
+      min-width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      color: var(--ink);
+      background: var(--card);
+      cursor: pointer;
+      font: 600 .76rem "DM Sans", sans-serif;
+    }
 
-        a:hover {
-            color: var(--link-hover);
-            text-decoration: underline;
-        }
+    .hero { display: grid; grid-template-columns: 1fr 280px; gap: 72px; align-items: center; padding: 98px 0 88px; }
+    .eyebrow { margin: 0 0 16px; color: var(--accent); font-size: .78rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+    h1, h2, h3 { font-family: "Newsreader", Georgia, serif; }
+    h1 { max-width: 760px; margin: 0; font-size: clamp(3.6rem, 8vw, 6.7rem); font-weight: 500; line-height: .9; letter-spacing: -.055em; }
+    .hero-title { margin: 28px 0 0; font-size: clamp(1.05rem, 2vw, 1.25rem); color: var(--muted); }
+    .hero-title strong { color: var(--ink); font-weight: 500; }
+    .hero-copy { max-width: 680px; margin: 20px 0 0; color: var(--muted); font-size: 1.02rem; }
+    .hero-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 44px;
+      padding: 0 17px;
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      background: var(--card);
+      font-size: .87rem;
+      font-weight: 600;
+      transition: transform .2s, border-color .2s, background .2s;
+    }
+    .button:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .button.primary { color: var(--paper); border-color: var(--accent); background: var(--accent); }
+    .avatar-frame { position: relative; aspect-ratio: 1; }
+    .avatar-frame::before { content: ""; position: absolute; inset: -12px 12px 12px -12px; border: 1px solid var(--accent); border-radius: 48% 52% 44% 56%; transform: rotate(-4deg); }
+    .avatar { position: relative; width: 100%; height: 100%; display: block; object-fit: cover; border-radius: 52% 48% 55% 45%; filter: saturate(.86); box-shadow: var(--shadow); }
+    .status { position: absolute; right: -12px; bottom: 12px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 99px; background: var(--paper); color: var(--muted); font-size: .74rem; box-shadow: var(--shadow); }
+    .status::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 7px; border-radius: 50%; background: var(--accent); }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    .section { padding: 82px 0; border-top: 1px solid var(--line); scroll-margin-top: 72px; }
+    .section-grid { display: grid; grid-template-columns: 240px 1fr; gap: 64px; }
+    .section-label { margin: 0; color: var(--accent); font: 600 .78rem "DM Sans", sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+    .section h2 { margin: -8px 0 20px; font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 500; line-height: 1.05; letter-spacing: -.035em; }
+    .lead { max-width: 750px; margin: 0; color: var(--muted); font-size: 1.08rem; }
+    .interest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 34px; }
+    .interest { min-height: 155px; padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); }
+    .interest .number { color: var(--accent); font: 500 1.05rem "Newsreader", serif; }
+    .interest h3 { margin: 30px 0 6px; font-size: 1.25rem; font-weight: 500; }
+    .interest p { margin: 0; color: var(--muted); font-size: .83rem; line-height: 1.5; }
 
-        /* 导航栏 */
-        .nav {
-            position: sticky;
-            top: 0;
-            background: var(--bg-color);
-            border-bottom: 1px solid var(--border-color);
-            padding: 15px 0;
-            z-index: 100;
-        }
+    .paper-list { margin-top: 10px; }
+    .paper { display: grid; grid-template-columns: 78px 1fr auto; gap: 22px; align-items: start; padding: 28px 0; border-bottom: 1px solid var(--line); }
+    .paper:first-child { border-top: 1px solid var(--line); }
+    .paper-year { color: var(--muted); font: 500 1.25rem "Newsreader", serif; }
+    .paper h3 { margin: 0 0 7px; font-size: 1.3rem; font-weight: 500; line-height: 1.25; }
+    .paper h3 a:hover { color: var(--accent); }
+    .paper-meta { margin: 0; color: var(--muted); font-size: .84rem; line-height: 1.55; }
+    .paper-meta strong { color: var(--ink); font-weight: 600; }
+    .venue { display: inline-block; padding: 4px 9px; border-radius: 99px; color: var(--accent); background: var(--accent-soft); font-size: .72rem; font-weight: 600; white-space: nowrap; }
+    .all-publications { margin-top: 24px; }
 
-        .nav-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            list-style: none;
-            font-size: 14px;
-        }
+    .contact-card { display: flex; justify-content: space-between; gap: 30px; align-items: flex-end; padding: 42px; border-radius: 22px; color: #f5f7f4; background: #1c4e40; box-shadow: var(--shadow); }
+    .contact-card h2 { max-width: 600px; margin-bottom: 12px; }
+    .contact-card p { margin: 0; color: rgba(255,255,255,.72); }
+    .contact-card .button { flex: 0 0 auto; color: #1c4e40; border-color: #fff; background: #fff; }
+    footer { display: flex; justify-content: space-between; gap: 20px; padding: 30px 0 42px; color: var(--muted); font-size: .78rem; }
 
-        .nav-list a {
-            color: var(--text-color);
-            font-weight: 500;
-        }
+    [data-lang="zh"] [data-en], [data-lang="en"] [data-zh] { display: none !important; }
 
-        .nav-list a:hover {
-            color: var(--link-color);
-            text-decoration: none;
-        }
-
-        /* 头部信息 */
-        .header {
-            padding: 50px 0 30px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 36px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--text-color);
-        }
-
-        .header .title {
-            font-size: 18px;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-        }
-
-        .header .email {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        /* 通用区块样式 */
-        section {
-            padding: 30px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        section:last-of-type {
-            border-bottom: none;
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--text-color);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* 个人简介 */
-        .bio-text {
-            font-size: 15px;
-            line-height: 1.8;
-            margin-bottom: 15px;
-        }
-
-        /* 研究兴趣 */
-        .interests-grid {
-            display: grid;
-            gap: 20px;
-        }
-
-        .interest-item {
-            background: var(--bg-alt);
-            padding: 15px;
-            border-radius: 6px;
-        }
-
-        .interest-title {
-            font-weight: 600;
-            color: var(--text-color);
-            margin-bottom: 8px;
-        }
-
-        .interest-papers {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .interest-papers a {
-            display: inline-block;
-            margin-right: 8px;
-            font-size: 13px;
-        }
-
-        /* 教育和工作经历 */
-        .timeline-item {
-            margin-bottom: 20px;
-        }
-
-        .timeline-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .timeline-school, .timeline-company {
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .timeline-degree, .timeline-position {
-            color: var(--text-muted);
-        }
-
-        .timeline-time {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        .timeline-detail {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-top: 5px;
-        }
-
-        /* 论文列表 */
-        .paper-filters {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .filter-btn {
-            background: var(--bg-alt);
-            border: 1px solid var(--border-color);
-            padding: 6px 16px;
-            border-radius: 4px;
-            font-size: 13px;
-            cursor: pointer;
-            color: var(--text-color);
-            transition: all 0.2s;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--primary-color);
-            color: #fff;
-            border-color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        .paper-item {
-            margin-bottom: 25px;
-            padding-left: 15px;
-            border-left: 3px solid var(--primary-color);
-        }
-
-        .paper-title {
-            font-weight: 600;
-            font-size: 15px;
-            margin-bottom: 8px;
-        }
-
-        .paper-authors {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
-        .paper-authors strong {
-            color: var(--text-color);
-        }
-
-        .paper-venue {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
-        .paper-links {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .paper-link {
-            font-size: 12px;
-            padding: 3px 10px;
-            border: 1px solid var(--link-color);
-            border-radius: 3px;
-            color: var(--link-color);
-        }
-
-        .paper-link:hover {
-            background: var(--link-color);
-            color: #fff;
-            text-decoration: none;
-        }
-
-        /* GitHub 项目 */
-        .github-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 15px;
-        }
-
-        .github-item {
-            background: var(--bg-alt);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 15px;
-            transition: border-color 0.2s;
-        }
-
-        .github-item:hover {
-            border-color: var(--link-color);
-        }
-
-        .github-name {
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .github-name a {
-            color: var(--link-color);
-        }
-
-        .github-desc {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-            line-height: 1.5;
-        }
-
-        .github-meta {
-            display: flex;
-            gap: 15px;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .github-lang {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .lang-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        /* 荣誉奖项 */
-        .honor-item {
-            margin-bottom: 15px;
-        }
-
-        .honor-title {
-            font-weight: 600;
-            font-size: 15px;
-        }
-
-        .honor-time {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        /* 学术服务 */
-        .service-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .service-tag {
-            background: var(--bg-alt);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            color: var(--text-muted);
-            border: 1px solid var(--border-color);
-        }
-
-        /* 页脚 */
-        .footer {
-            padding: 30px 0;
-            text-align: center;
-            font-size: 13px;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border-color);
-            margin-top: 30px;
-        }
-
-        .footer a {
-            color: var(--text-muted);
-        }
-
-        .back-to-top {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 8px 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        .back-to-top:hover {
-            background: var(--bg-alt);
-            text-decoration: none;
-        }
-
-        /* 响应式 */
-        @media (max-width: 600px) {
-            .nav-list {
-                gap: 12px;
-                font-size: 13px;
-            }
-
-            .header h1 {
-                font-size: 28px;
-            }
-
-            .timeline-header {
-                flex-direction: column;
-                gap: 5px;
-            }
-
-            .github-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; gap: 54px; padding-top: 72px; }
+      .avatar-frame { width: min(270px, 78vw); order: -1; }
+      .section-grid { grid-template-columns: 1fr; gap: 24px; }
+      .interest-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .shell { width: min(100% - 28px, 1120px); }
+      h1 { font-size: 3.5rem; }
+      .paper { grid-template-columns: 56px 1fr; gap: 12px; }
+      .paper .venue { grid-column: 2; justify-self: start; }
+      .contact-card { align-items: flex-start; flex-direction: column; padding: 28px; }
+      footer { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+  </style>
 </head>
-<body>
-    <!-- 导航栏 -->
-    <nav class="nav">
-        <div class="container">
-            <ul class="nav-list">
-                <li><a href="#about">About</a></li>
-                <li><a href="#interests">Interests</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#experiences">Experiences</a></li>
-                <li><a href="#publications">Publications</a></li>
-                <li><a href="#github">GitHub</a></li>
-                <li><a href="#honors">Honors</a></li>
-                <li><a href="#services">Services</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="container">
-        <!-- 头部 -->
-        <header class="header">
-            <h1>Yu Liu</h1>
-            <p class="title">吉林大学 计算机科学与技术学院 助理研究员</p>
-            <p class="email">yul26@jlu.edu.cn</p>
-        </header>
-
-        <!-- 个人简介 -->
-        <section id="about">
-            <h2 class="section-title">About</h2>
-            <p class="bio-text">
-                我是吉林大学计算机科学与技术学院的鼎新学者Yu Liu。我的研究兴趣主要集中在人工智能、机器学习、计算机视觉等领域。
-            </p>
-            <p class="bio-text">
-                在此之前，我在吉林大学获得了计算机科学与技术博士学位。我致力于通过创新的方法解决实际问题，并在顶级会议和期刊上发表了多篇学术论文。
-            </p>
-            <p class="bio-text">
-                欢迎对研究感兴趣的同学通过邮件与我联系！
-            </p>
-        </section>
-
-        <!-- 研究兴趣 -->
-        <section id="interests">
-            <h2 class="section-title">Interests</h2>
-            <div class="interests-grid">
-                <div class="interest-item">
-                    <div class="interest-title">🤖 机器学习 (Machine Learning)</div>
-                    <div class="interest-papers">
-                        <a href="#">[Project A]</a>
-                        <a href="#">[Project B]</a>
-                        <a href="#">[Survey]</a>
-                    </div>
-                </div>
-                <div class="interest-item">
-                    <div class="interest-title">👁️ 计算机视觉 (Computer Vision)</div>
-                    <div class="interest-papers">
-                        <a href="#">[CVPR 2025]</a>
-                        <a href="#">[ICCV 2024]</a>
-                        <a href="#">[ECCV 2024]</a>
-                    </div>
-                </div>
-                <div class="interest-item">
-                    <div class="interest-title">📝 自然语言处理 (NLP)</div>
-                    <div class="interest-papers">
-                        <a href="#">[ACL 2025]</a>
-                        <a href="#">[EMNLP 2024]</a>
-                    </div>
-                </div>
-                <div class="interest-item">
-                    <div class="interest-title">🧠 深度学习 (Deep Learning)</div>
-                    <div class="interest-papers">
-                        <a href="#">[NeurIPS 2025]</a>
-                        <a href="#">[ICLR 2025]</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 教育背景 -->
-        <section id="education">
-            <h2 class="section-title">Education</h2>
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <span class="timeline-school">XX 大学</span>
-                    <span class="timeline-time">2023 - 至今</span>
-                </div>
-                <div class="timeline-degree">计算机科学与技术 博士研究生</div>
-                <div class="timeline-detail">导师：XXX 教授</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <span class="timeline-school">XX 大学</span>
-                    <span class="timeline-time">2020 - 2023</span>
-                </div>
-                <div class="timeline-degree">计算机科学与技术 硕士研究生</div>
-                <div class="timeline-detail">导师：XXX 教授</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <span class="timeline-school">XX 大学</span>
-                    <span class="timeline-time">2016 - 2020</span>
-                </div>
-                <div class="timeline-degree">计算机科学与技术 学士</div>
-            </div>
-        </section>
-
-        <!-- 工作/研究经历 -->
-        <section id="experiences">
-            <h2 class="section-title">Experiences</h2>
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <span class="timeline-company">XX 公司 AI 实验室</span>
-                    <span class="timeline-time">2025.06 - 2025.12</span>
-                </div>
-                <div class="timeline-position">研究实习生</div>
-                <div class="timeline-detail">研究方向：大语言模型与多模态学习</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <span class="timeline-company">微软亚洲研究院 (MSRA)</span>
-                    <span class="timeline-time">2024.06 - 2024.09</span>
-                </div>
-                <div class="timeline-position">访问学生</div>
-                <div class="timeline-detail">合作导师：XXX 研究员</div>
-            </div>
-        </section>
-
-        <!-- 发表论文 -->
-        <section id="publications">
-            <h2 class="section-title">Publications</h2>
-            <div class="paper-filters">
-                <button class="filter-btn active" onclick="filterPapers('all')">Show All</button>
-                <button class="filter-btn" onclick="filterPapers('representative')">Representative</button>
-            </div>
-
-            <div class="paper-item representative">
-                <div class="paper-title">论文标题示例：一种基于深度学习的创新方法研究</div>
-                <div class="paper-authors">
-                    <strong>你的姓名</strong>, 合作作者 1, 合作作者 2, 通讯作者
-                </div>
-                <div class="paper-venue">
-                    <em>Neural Information Processing Systems (NeurIPS)</em>, 2025
-                </div>
-                <div class="paper-links">
-                    <a href="#" class="paper-link">Paper</a>
-                    <a href="#" class="paper-link">Code</a>
-                    <a href="#" class="paper-link">Project</a>
-                </div>
-            </div>
-
-            <div class="paper-item representative">
-                <div class="paper-title">论文标题示例：面向大规模视觉识别的高效框架</div>
-                <div class="paper-authors">
-                    合作作者 1, <strong>你的姓名</strong>, 通讯作者
-                </div>
-                <div class="paper-venue">
-                    <em>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 2025
-                </div>
-                <div class="paper-links">
-                    <a href="#" class="paper-link">Paper</a>
-                    <a href="#" class="paper-link">Code ⭐ 500+</a>
-                </div>
-            </div>
-
-            <div class="paper-item">
-                <div class="paper-title">论文标题示例：多模态学习中的表示方法研究</div>
-                <div class="paper-authors">
-                    <strong>你的姓名</strong>, 合作作者 1, 合作作者 2
-                </div>
-                <div class="paper-venue">
-                    <em>International Conference on Machine Learning (ICML)</em>, 2024
-                </div>
-                <div class="paper-links">
-                    <a href="#" class="paper-link">Paper</a>
-                    <a href="#" class="paper-link">Code</a>
-                </div>
-            </div>
-
-            <div class="paper-item">
-                <div class="paper-title">论文标题示例：基于 Transformer 的序列建模方法</div>
-                <div class="paper-authors">
-                    合作作者 1, <strong>你的姓名</strong>, 合作作者 2, 通讯作者
-                </div>
-                <div class="paper-venue">
-                    <em>International Conference on Learning Representations (ICLR)</em>, 2024
-                </div>
-                <div class="paper-links">
-                    <a href="#" class="paper-link">Paper</a>
-                    <a href="#" class="paper-link">Code ⭐ 300+</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- GitHub 项目 -->
-        <section id="github">
-            <h2 class="section-title">GitHub</h2>
-            <div class="github-grid">
-                <div class="github-item">
-                    <div class="github-name">
-                        <a href="#" target="_blank">your-username/awesome-project</a>
-                    </div>
-                    <div class="github-desc">
-                        🌟 一个超棒的项目！这是项目的简短描述。
-                    </div>
-                    <div class="github-meta">
-                        <span class="github-lang">
-                            <span class="lang-dot" style="background: #f1e05a;"></span>
-                            Python
-                        </span>
-                        <span>⭐ 1.2k</span>
-                        <span>🍴 234</span>
-                    </div>
-                </div>
-
-                <div class="github-item">
-                    <div class="github-name">
-                        <a href="#" target="_blank">your-username/deep-learning-toolkit</a>
-                    </div>
-                    <div class="github-desc">
-                        🧠 深度学习工具包，提供常用的神经网络模块。
-                    </div>
-                    <div class="github-meta">
-                        <span class="github-lang">
-                            <span class="lang-dot" style="background: #f1e05a;"></span>
-                            Python
-                        </span>
-                        <span>⭐ 856</span>
-                        <span>🍴 123</span>
-                    </div>
-                </div>
-
-                <div class="github-item">
-                    <div class="github-name">
-                        <a href="#" target="_blank">your-username/nlp-experiments</a>
-                    </div>
-                    <div class="github-desc">
-                        📝 自然语言处理实验代码，包含多种 Transformer 实现。
-                    </div>
-                    <div class="github-meta">
-                        <span class="github-lang">
-                            <span class="lang-dot" style="background: #3572a5;"></span>
-                            JavaScript
-                        </span>
-                        <span>⭐ 432</span>
-                        <span>🍴 89</span>
-                    </div>
-                </div>
-
-                <div class="github-item">
-                    <div class="github-name">
-                        <a href="#" target="_blank">your-username/personal-website</a>
-                    </div>
-                    <div class="github-desc">
-                        🌐 个人网站模板，简洁优雅的设计。
-                    </div>
-                    <div class="github-meta">
-                        <span class="github-lang">
-                            <span class="lang-dot" style="background: #e34c26;"></span>
-                            HTML
-                        </span>
-                        <span>⭐ 234</span>
-                        <span>🍴 56</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 荣誉奖项 -->
-        <section id="honors">
-            <h2 class="section-title">Honors & Awards</h2>
-            <div class="honor-item">
-                <div class="honor-title">国家奖学金</div>
-                <div class="honor-time">2025</div>
-            </div>
-            <div class="honor-item">
-                <div class="honor-title">XX 大学优秀博士研究生</div>
-                <div class="honor-time">2024</div>
-            </div>
-            <div class="honor-item">
-                <div class="honor-title">XX 会议最佳论文奖</div>
-                <div class="honor-time">2024</div>
-            </div>
-            <div class="honor-item">
-                <div class="honor-title">XX 大学研究生一等奖学金</div>
-                <div class="honor-time">2023 - 2025</div>
-            </div>
-        </section>
-
-        <!-- 学术服务 -->
-        <section id="services">
-            <h2 class="section-title">Academic Services</h2>
-            <div style="margin-bottom: 20px;">
-                <strong style="font-size: 14px;">Conference Reviewer:</strong>
-                <div class="service-list" style="margin-top: 10px;">
-                    <span class="service-tag">CVPR</span>
-                    <span class="service-tag">ICCV</span>
-                    <span class="service-tag">ECCV</span>
-                    <span class="service-tag">NeurIPS</span>
-                    <span class="service-tag">ICLR</span>
-                    <span class="service-tag">ICML</span>
-                </div>
-            </div>
-            <div>
-                <strong style="font-size: 14px;">Journal Reviewer:</strong>
-                <div class="service-list" style="margin-top: 10px;">
-                    <span class="service-tag">TPAMI</span>
-                    <span class="service-tag">IJCV</span>
-                    <span class="service-tag">TNNLS</span>
-                    <span class="service-tag">TCSVT</span>
-                </div>
-            </div>
-        </section>
+<body data-lang="en">
+  <nav class="site-nav" aria-label="Primary navigation">
+    <div class="shell nav-inner">
+      <a class="wordmark" href="#top" aria-label="Yu Liu, home">Yu Liu</a>
+      <div class="nav-links">
+        <a href="#about"><span data-en>About</span><span data-zh>简介</span></a>
+        <a href="#research"><span data-en>Research</span><span data-zh>研究</span></a>
+        <a href="#publications"><span data-en>Publications</span><span data-zh>论文</span></a>
+        <a href="#contact"><span data-en>Contact</span><span data-zh>联系</span></a>
+      </div>
+      <div class="nav-actions">
+        <button class="icon-button" id="languageButton" type="button" aria-label="Switch language">中文</button>
+        <button class="icon-button" id="themeButton" type="button" aria-label="Switch color theme">◐</button>
+      </div>
     </div>
+  </nav>
 
-    <!-- 页脚 -->
-    <footer class="footer">
-        <p>📧 yul26@jlu.edu.cn</p>
-        <p style="margin-top: 10px;">Last updated: March 2026</p>
-        <a href="#" class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">↑ Top</a>
-    </footer>
+  <main id="top" class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow"><span data-en>Multimodal Intelligence · Causal Learning</span><span data-zh>多模态智能 · 因果学习</span></p>
+        <h1>Yu Liu</h1>
+        <p class="hero-title">
+          <span data-en><strong>Assistant Researcher</strong> at the College of Computer Science and Technology, Jilin University.</span>
+          <span data-zh>吉林大学计算机科学与技术学院<strong>助理研究员</strong>。</span>
+        </p>
+        <p class="hero-copy">
+          <span data-en>I study how multimodal systems can learn robust and reliable representations, with a focus on cross-modal retrieval, vision-language understanding, and causal representation learning.</span>
+          <span data-zh>我的研究关注多模态系统如何学习稳健、可信的表示，重点方向包括跨模态检索、视觉语言理解与因果表示学习。</span>
+        </p>
+        <div class="hero-links">
+          <a class="button primary" href="https://scholar.google.com/citations?user=MWZhhtgAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar ↗</a>
+          <a class="button" href="https://github.com/yul1998" target="_blank" rel="noopener">GitHub ↗</a>
+          <a class="button" href="mailto:yul26@jlu.edu.cn"><span data-en>Email me</span><span data-zh>邮件联系</span> ↗</a>
+        </div>
+      </div>
+      <div class="avatar-frame">
+        <img class="avatar" src="https://avatars.githubusercontent.com/u/71552069?v=4" alt="Portrait of Yu Liu" width="560" height="560">
+        <span class="status"><span data-en>Jilin University</span><span data-zh>吉林大学</span></span>
+      </div>
+    </header>
 
-    <script>
-        // 论文筛选功能
-        function filterPapers(type) {
-            const papers = document.querySelectorAll('.paper-item');
-            const btns = document.querySelectorAll('.filter-btn');
-            
-            btns.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            papers.forEach(paper => {
-                if (type === 'all') {
-                    paper.style.display = 'block';
-                } else if (type === 'representative') {
-                    if (paper.classList.contains('representative')) {
-                        paper.style.display = 'block';
-                    } else {
-                        paper.style.display = 'none';
-                    }
-                }
-            });
-        }
+    <section class="section" id="about">
+      <div class="section-grid">
+        <p class="section-label">01 · <span data-en>About</span><span data-zh>简介</span></p>
+        <div>
+          <h2><span data-en>Building reliable bridges between vision and language.</span><span data-zh>连接视觉与语言，构建可信的多模态智能。</span></h2>
+          <p class="lead">
+            <span data-en>My work explores the foundations and applications of multimodal learning. I am particularly interested in models that remain effective under distribution shifts, noisy correspondence, or missing modalities—and in using causal ideas to make their decisions more robust and interpretable.</span>
+            <span data-zh>我的工作探索多模态学习的基础方法与应用。我尤其关注模型在分布偏移、噪声对应与模态缺失条件下的有效性，并尝试借助因果思想提升模型决策的稳健性与可解释性。</span>
+          </p>
+        </div>
+      </div>
+    </section>
 
-        // 平滑滚动
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
+    <section class="section" id="research">
+      <div class="section-grid">
+        <p class="section-label">02 · <span data-en>Research</span><span data-zh>研究</span></p>
+        <div>
+          <h2><span data-en>Research interests</span><span data-zh>研究兴趣</span></h2>
+          <div class="interest-grid">
+            <article class="interest"><span class="number">01</span><h3><span data-en>Cross-modal Retrieval</span><span data-zh>跨模态检索</span></h3><p><span data-en>Fine-grained image–text alignment and retrieval.</span><span data-zh>细粒度图文对齐、表征与检索。</span></p></article>
+            <article class="interest"><span class="number">02</span><h3><span data-en>Causal Learning</span><span data-zh>因果学习</span></h3><p><span data-en>Invariant representations and bias mitigation.</span><span data-zh>不变表示、偏差缓解与稳健学习。</span></p></article>
+            <article class="interest"><span class="number">03</span><h3><span data-en>Multimodal Intelligence</span><span data-zh>多模态智能</span></h3><p><span data-en>Reliable learning with noisy or incomplete modalities.</span><span data-zh>面向噪声与模态缺失的可信学习。</span></p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="publications">
+      <div class="section-grid">
+        <p class="section-label">03 · <span data-en>Publications</span><span data-zh>论文</span></p>
+        <div>
+          <h2><span data-en>Selected publications</span><span data-zh>代表性论文</span></h2>
+          <div class="paper-list">
+            <article class="paper">
+              <span class="paper-year">2026</span>
+              <div><h3><a href="https://doi.org/10.1609/aaai.v40i24.39090" target="_blank" rel="noopener">Causality-Aligned Semantic Recovery for Incomplete Cross-Modal Retrieval ↗</a></h3><p class="paper-meta">Haipeng Chen, <strong>Yu Liu</strong>, Xun Yang, Yuheng Liang, Yingda Lyu</p></div>
+              <span class="venue">AAAI 2026</span>
+            </article>
+            <article class="paper">
+              <span class="paper-year">2025</span>
+              <div><h3><a href="https://www.ijcai.org/proceedings/2025/0647.pdf" target="_blank" rel="noopener">Enhancing Semantic Clarity: Discriminative and Fine-grained Information Mining for Remote Sensing Image-Text Retrieval ↗</a></h3><p class="paper-meta"><strong>Yu Liu</strong>, Haipeng Chen, Yuheng Liang, Yuheng Yang, Xun Yang, Yingda Lyu</p></div>
+              <span class="venue">IJCAI 2025</span>
+            </article>
+            <article class="paper">
+              <span class="paper-year">2025</span>
+              <div><h3><a href="https://doi.org/10.1145/3700596" target="_blank" rel="noopener">Bias Mitigation and Representation Optimization for Noise-Robust Cross-Modal Retrieval ↗</a></h3><p class="paper-meta"><strong>Yu Liu</strong>, Haipeng Chen, Guihe Qin, Jincai Song, Xun Yang</p></div>
+              <span class="venue">ACM TOMM</span>
+            </article>
+            <article class="paper">
+              <span class="paper-year">2024</span>
+              <div><h3><a href="https://doi.org/10.1609/aaai.v38i12.29314" target="_blank" rel="noopener">Causality-Inspired Invariant Representation Learning for Text-Based Person Retrieval ↗</a></h3><p class="paper-meta"><strong>Yu Liu</strong>, Guihe Qin, Haipeng Chen, Zhiyong Cheng, Xun Yang</p></div>
+              <span class="venue">AAAI 2024</span>
+            </article>
+          </div>
+          <a class="button all-publications" href="https://scholar.google.com/citations?user=MWZhhtgAAAAJ&amp;hl=en" target="_blank" rel="noopener"><span data-en>View all on Google Scholar</span><span data-zh>在 Google Scholar 查看全部</span> ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="contact-card">
+        <div>
+          <p class="section-label" style="color:#a9d8c5">04 · <span data-en>Contact</span><span data-zh>联系</span></p>
+          <h2><span data-en>Interested in collaborating?</span><span data-zh>期待学术交流与合作。</span></h2>
+          <p><span data-en>For research conversations and collaboration, feel free to get in touch.</span><span data-zh>如有研究交流与合作意向，欢迎通过邮件与我联系。</span></p>
+        </div>
+        <a class="button" href="mailto:yul26@jlu.edu.cn">yul26@jlu.edu.cn ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <span>© <span id="year"></span> Yu Liu</span>
+    <span><span data-en>Designed for clarity, built for research.</span><span data-zh>清晰呈现，专注研究。</span></span>
+  </footer>
+
+  <script>
+    const root = document.documentElement;
+    const body = document.body;
+    const languageButton = document.getElementById('languageButton');
+    const themeButton = document.getElementById('themeButton');
+    const savedTheme = localStorage.getItem('theme');
+    const preferredDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme === 'dark' || (!savedTheme && preferredDark)) root.dataset.theme = 'dark';
+
+    languageButton.addEventListener('click', () => {
+      const next = body.dataset.lang === 'en' ? 'zh' : 'en';
+      body.dataset.lang = next;
+      root.lang = next === 'zh' ? 'zh-CN' : 'en';
+      languageButton.textContent = next === 'en' ? '中文' : 'EN';
+      document.title = next === 'en' ? 'Yu Liu — Academic Homepage' : 'Yu Liu — 个人学术主页';
+    });
+    themeButton.addEventListener('click', () => {
+      const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      localStorage.setItem('theme', next);
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+    window.addEventListener('scroll', () => document.querySelector('.site-nav').classList.toggle('scrolled', window.scrollY > 10), { passive: true });
+  </script>
 </body>
 </html>
