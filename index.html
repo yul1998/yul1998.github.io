@@ -114,6 +114,10 @@
     .section-label { margin: 0; color: var(--accent); font: 600 .78rem "DM Sans", sans-serif; letter-spacing: .12em; text-transform: uppercase; }
     .section h2 { margin: -8px 0 20px; font-size: clamp(2.25rem, 5vw, 3.5rem); font-weight: 500; line-height: 1.05; letter-spacing: -.035em; }
     .lead { max-width: 750px; margin: 0; color: var(--muted); font-size: 1.08rem; }
+    .news-list { margin-top: 10px; border-top: 1px solid var(--line); }
+    .news-item { display: grid; grid-template-columns: 88px 1fr; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--line); }
+    .news-date { color: var(--accent); font: 500 1.05rem "Newsreader", serif; }
+    .news-item p { margin: 0; color: var(--ink); font-size: 1.05rem; line-height: 1.65; }
     .interest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 34px; }
     .interest { min-height: 155px; padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); }
     .interest .number { color: var(--accent); font: 500 1.05rem "Newsreader", serif; }
@@ -151,6 +155,7 @@
       h1 { font-size: 3.5rem; }
       .paper { grid-template-columns: 56px 1fr; gap: 12px; }
       .paper .venue { grid-column: 2; justify-self: start; }
+      .news-item { grid-template-columns: 1fr; gap: 8px; }
       .contact-card { align-items: flex-start; flex-direction: column; padding: 28px; }
       footer { flex-direction: column; }
     }
@@ -163,6 +168,7 @@
       <a class="wordmark" href="#top" aria-label="Yu Liu, home">Yu Liu</a>
       <div class="nav-links">
         <a href="#about"><span data-en>About</span><span data-zh>简介</span></a>
+        <a href="#news"><span data-en>News</span><span data-zh>动态</span></a>
         <a href="#research"><span data-en>Research</span><span data-zh>研究</span></a>
         <a href="#publications"><span data-en>Publications</span><span data-zh>论文</span></a>
         <a href="#contact"><span data-en>Contact</span><span data-zh>联系</span></a>
@@ -212,9 +218,27 @@
       </div>
     </section>
 
+    <section class="section" id="news">
+      <div class="section-grid">
+        <p class="section-label">02 · 🔥 <span data-en>News</span><span data-zh>动态</span></p>
+        <div>
+          <h2><span data-en>Latest news</span><span data-zh>最新动态</span></h2>
+          <div class="news-list">
+            <article class="news-item">
+              <time class="news-date" datetime="2026-08">2026.08</time>
+              <p>
+                <span data-en>My project, “Cross-Modal Retrieval with Multi-Source Uncertainty Awareness in Open-World Scenarios,” was funded by the National Natural Science Foundation of China under the Young Scientists Fund.</span>
+                <span data-zh>获批国家自然科学基金委员会青年项目：“开放场景下多源不确定性感知的跨模态检索研究”。</span>
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="research">
       <div class="section-grid">
-        <p class="section-label">02 · <span data-en>Research</span><span data-zh>研究</span></p>
+        <p class="section-label">03 · <span data-en>Research</span><span data-zh>研究</span></p>
         <div>
           <h2><span data-en>Research interests</span><span data-zh>研究兴趣</span></h2>
           <div class="interest-grid">
@@ -228,7 +252,7 @@
 
     <section class="section" id="publications">
       <div class="section-grid">
-        <p class="section-label">03 · <span data-en>Publications</span><span data-zh>论文</span></p>
+        <p class="section-label">04 · <span data-en>Publications</span><span data-zh>论文</span></p>
         <div>
           <h2><span data-en>Selected publications</span><span data-zh>代表性论文</span></h2>
           <div class="paper-list">
@@ -266,7 +290,7 @@
     <section class="section" id="contact">
       <div class="contact-card">
         <div>
-          <p class="section-label" style="color:#a9d8c5">04 · <span data-en>Contact</span><span data-zh>联系</span></p>
+          <p class="section-label" style="color:#a9d8c5">05 · <span data-en>Contact</span><span data-zh>联系</span></p>
           <h2><span data-en>Interested in collaborating?</span><span data-zh>期待学术交流与合作。</span></h2>
           <p><span data-en>For research conversations and collaboration, feel free to get in touch.</span><span data-zh>如有研究交流与合作意向，欢迎通过邮件与我联系。</span></p>
         </div>
